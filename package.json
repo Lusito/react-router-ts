@@ -1,6 +1,6 @@
 {
   "name": "react-router-ts",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A lightweight react router using hooks, written in TypeScript",
   "keywords": [
     "TypeScript",

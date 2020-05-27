@@ -20,7 +20,7 @@ export const Router = ({
 }: React.PropsWithChildren<RouterProps>) => {
     const [router, setPath] = useReducer(setPathReducer, null, () => ({
         basename,
-        history: createHistory(basename, (path) => setPath(path)),
+        history: createHistory(basename, () => setPath(getPathWithoutBasename(basename))),
         path: getPathWithoutBasename(basename),
         matchRoute: createRouteMatcher(routeMatcherFactory),
     }));
