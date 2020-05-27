@@ -15,7 +15,8 @@ export function createHistory(basename: string, onChange: (s: string) => void): 
             const { location, history } = window;
             // Only push if something changed.
             if (newPath !== location.pathname + location.search + location.hash) history.pushState({}, "", newPath);
-            onChange(path);
+            // Need to separate search and hash parts from path
+            onChange(path.split(/[?#]/, 1)[0]);
         },
         replace(path: string) {
             window.history.replaceState({}, "", `${basename}${path}`);

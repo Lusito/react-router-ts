@@ -1,6 +1,6 @@
 {
   "name": "react-router-ts",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "A lightweight react router using hooks, written in TypeScript",
   "keywords": [
     "TypeScript",
@@ -37,14 +37,14 @@
     "lint:style:fix": "npm run lint:style:base -- --write"
   },
   "devDependencies": {
-    "@lusito/eslint-config-react": "^1.0.3",
+    "@lusito/eslint-config-react": "^1.0.4",
     "@lusito/prettier-config": "^1.0.0",
     "@lusito/stylelint-config": "^1.0.0",
-    "@types/react": "^16.9.22",
+    "@types/react": "^16.9.35",
     "react": "^16.13.1",
     "rimraf": "^3.0.2",
-    "sort-package-json": "^1.40.0",
-    "typescript": "^3.8.2"
+    "sort-package-json": "^1.43.0",
+    "typescript": "^3.9.3"
   },
   "peerDependencies": {
     "react": "^16.8.0"
