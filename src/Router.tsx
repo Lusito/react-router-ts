@@ -1,29 +1,37 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import { RouterContext, RouterContextValue } from "./RouterContext";
-import { createHistory } from "./history";
+import { createHistory, getHashPath } from "./history";
 import { createRouteMatcher, RouteMatcherFactory } from "./routeMatcher";
 import { getPathWithoutBasename } from "./basename";
 import { simpleRouteMatcherFactory } from "./simpleRouteMatcherFactory";
 
 export interface RouterProps {
     basename?: string;
+    mode?: "hash" | "path";
     routeMatcherFactory?: RouteMatcherFactory;
 }
 
-const setPathReducer = (state: RouterContextValue, path: string) => ({ ...state, path });
-
 export const Router = ({
     basename = "",
+    mode,
     routeMatcherFactory = simpleRouteMatcherFactory,
     children,
 }: React.PropsWithChildren<RouterProps>) => {
-    const [router, setPath] = useReducer(setPathReducer, null, () => ({
-        basename,
-        history: createHistory(basename, () => setPath(getPathWithoutBasename(basename))),
-        path: getPathWithoutBasename(basename),
-        matchRoute: createRouteMatcher(routeMatcherFactory),
-    }));
-    useEffect(() => router.history.stop, []);
+    const hashMode = mode === "hash";
+    const [path, setPath] = useState(() => (hashMode ? getHashPath() : getPathWithoutBasename(basename)));
+    const history = useMemo(() => createHistory(hashMode, basename, setPath), [setPath, basename, hashMode]);
+    const matchRoute = useMemo(() => createRouteMatcher(routeMatcherFactory), [routeMatcherFactory]);
+    const router = useMemo<RouterContextValue>(
+        () => ({
+            basename,
+            path,
+            history,
+            matchRoute,
+            urlTo: history.urlTo,
+        }),
+        [basename, path, history, matchRoute]
+    );
+    useEffect(() => history.stop, [history]);
     return <RouterContext.Provider value={router}>{children}</RouterContext.Provider>;
 };

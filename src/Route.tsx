@@ -17,7 +17,7 @@ export interface RouteProps {
 
 export function Route(props: RouteProps) {
     const router = useRouter();
-    const params = useMemo(() => router.matchRoute(props.path, router.path), [props.path, router.path]);
+    const params = useMemo(() => router.matchRoute(props.path, router.path), [props.path, router]);
 
     if (!params) return null;
 

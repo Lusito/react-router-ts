@@ -8,6 +8,7 @@ export interface RouterContextValue {
     path: string;
     history: RouterHistory;
     matchRoute: CachedRouteMatcher;
+    urlTo: (path: string) => string;
 }
 
 const throwMissingDefault = () => {
@@ -21,6 +22,8 @@ export const RouterContext = createContext<RouterContextValue>({
         push: throwMissingDefault,
         replace: throwMissingDefault,
         stop: throwMissingDefault,
+        urlTo: throwMissingDefault,
     },
     matchRoute: throwMissingDefault,
+    urlTo: throwMissingDefault,
 });

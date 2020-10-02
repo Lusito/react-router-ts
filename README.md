@@ -158,6 +158,22 @@ Moving from `/news/1` to `/news/2` will only update the components properties. S
 If you want to force the component to be created from scratch in this situation, you can do so by setting the property `addKey` (boolean).
 This will add the `key` property to the component with a value of the current path.
 
+#### Storing the route in the hash instead
+In some situations, it's easier to store the route in the hash part of the URL, as it avoids the server having to be aware of the single page application behavior. You can enable the "hash" mode on the `Router` component:
+
+```tsx
+import { Router } from "react-router-ts";
+export const App = () => (
+    <Router mode="hash">
+        ....
+    </Router>
+);
+```
+
+This will result in a url like `https://some-domain.com/#/News` instead of `https://some-domain.com/News`.
+
+This approach will still use the [history](https://caniuse.com/history) API internally!
+
 #### Using a basename
 If your app is not located at the root directory of a server, but instead in a sub-directory, you'll want to specify that sub-directory. You can do that on the `Router` component.
 
@@ -234,16 +250,20 @@ export interface RouterContextValue {
     path: string;
     history: RouterHistory;
     matchRoute: CachedRouteMatcher;
+    urlTo: (path: string) => string;
 }
 // with:
 export interface RouterHistory {
     push: (path: string) => void;
     replace: (path: string) => void;
     stop: () => void; // for internal use, do not call.
+    urlTo: (path: string) => string;
 }
 // and:
 export type CachedRouteMatcher = (pattern: string, path: string) => (RouteParams | null);
 ```
+
+`urlTo()` can be used to create a new url, which respects `basename` and `mode`. It's the same for both `RouterContextValue` and `RouterHistory`.
 
 ### Report isssues
 

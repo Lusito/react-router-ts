@@ -7,5 +7,5 @@ export const useRouter = () => useContext(RouterContext);
 
 export function useParams<T extends RouteParams = RouteParams>(path: string): T {
     const router = useRouter();
-    return useMemo(() => router.matchRoute(path, router.path), [path, router.path]) as T;
+    return useMemo(() => router.matchRoute(path, router.path), [path, router]) as T;
 }
