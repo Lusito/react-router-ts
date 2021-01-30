@@ -1,4 +1,8 @@
-# react-router-ts
+# Deprecated
+
+**WARNING:** This project has moved to [@react-nano/router](https://github.com/lusito/react-nano)
+
+## react-router-ts
 
 [![Minified + gzipped size](https://badgen.net/bundlephobia/minzip/react-router-ts)](https://www.npmjs.com/package/react-router-ts)
 [![NPM version](https://badgen.net/npm/v/react-router-ts)](https://www.npmjs.com/package/react-router-ts)
